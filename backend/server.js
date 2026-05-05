@@ -8,11 +8,13 @@ const Db_connect = require("../backend/db");
 const loginSchema = require("./schema/LoginSchema");
 const signupSchema = require("./schema/SignupSchema");
 const jwt = require('jsonwebtoken');
+const { default: mongoose } = require('mongoose');
+const SignupSchema = require('./schema/SignupSchema');
 
 Db_connect();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: ['GET', 'POST'],
     optionsSuccessStatus: 200
 };
@@ -68,6 +70,22 @@ app.post("/signup", async (req, res) => {
     });
     await userCreation.save();
     res.status(201).json({ message: "userDetails created successfully" });
+
+})
+
+
+app.get("/bookings",async (req,res)=>{
+
+    try {
+        const databaseUsers=await SignupSchema.find({});
+    console.log(databaseUsers);
+    return res.send({message:"data fetch sucessfully",databaseUsers});
+        
+    } catch (error) {
+        console.log("error",error.message);
+        
+    }
+    
 
 })
 

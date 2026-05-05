@@ -11,7 +11,6 @@ function Login(){
     function UserInput(e){
         console.log(e.target.value);
         setUsername(e.target.value);
-
     }
     function PasswordInput(e){
         console.log(e.target.value);
